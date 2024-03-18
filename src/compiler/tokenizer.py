@@ -10,7 +10,7 @@ class Token():
 
 
     def __eq__(self, location: object) -> bool:
-        return self.loc == location
+        return self.location == location
 
 class Tokenizer():
     """
@@ -22,15 +22,15 @@ class Tokenizer():
     def tokenize(source_code: str) -> list[Token]:
         tokens: list[str] = []
 
-        keywords = {'if', 'else', 'while', 'print'}
+        keywords = {'if', 'else', 'while', 'print', 'then'}
         token_specification = [
             ('identifier',       r'\b[a-zA-Z_][a-zA-Z0-9_]*\b'),
             ('int_literal', r'\b\d+\b'),
             ('NEWLINE',  r'\\n'),           
             ('SKIP',     r'[ \t]+'),
             ('Comment', r'#\s?.*|//.*'),
-            ('Operator', r'==|!=|<=|>=|\+|-|\*|/|=|<|>'),
-            ('Punctuation', r'[(),{};]'),
+            ('Operator', r'==|!=|<=|>=|\+|-|\*|/|=|<|>|%'),
+            ('Punctuation', r'[(),:,{};]'),
             ('MISMATCH', r'.'),            
         ]
         token_regex = '|'.join('(?P<%s>%s)' % pair for pair in token_specification)

@@ -1,4 +1,5 @@
 import sys
+from compiler import type_checker
 
 from compiler.tokenizer import Tokenizer
 from compiler.parser import parse # name overrides stdlib parser
@@ -46,7 +47,8 @@ def main() -> int:
         source_code = read_source_code()
         tokenized_code = Tokenizer.tokenize(source_code=source_code)
         parsed = parse(tokens=tokenized_code)
-        print(parsed)
+        #print(parsed)
+        type_checker.typecheck(parsed)
     else:
         print(f"Error: unknown command: {command}\n\n{usage}", file=sys.stderr)
         return 1
